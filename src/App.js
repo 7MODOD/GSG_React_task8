@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App() {
+const [name, setName] = useState(0);
+const [mobile, setMobile] = useState("");
+const [darkMode, setDarkMode] = useState(false);
+let dependency =  [name, mobile];
+
+
+useEffect(() => {
+console.log(`
+the reason of why the useEffect called when we change the darkmode: 
+because the dependency is an object and the useEffect can receive just an array of states or variables
+so we cant pass an object which contain states ot variables, if we do that the useEffect will take the default value (undefined)
+
+`);
+}, dependency);
+
+
+return (
+<div className={`container ${darkMode ? "bgDark" : "bgLight"}`}>
+<input
+type="text"
+id="name"
+placeholder="Name"
+onChange={(e) => setName(e.target.value)}
+/>
+<input
+type="text"
+id="mobile"
+placeholder="Mobile"
+onChange={(e) => setMobile(e.target.value)}
+/>
+<div className="darkmode">
+<input
+type="checkbox"
+id="darkMode"
+onChange={() => setDarkMode(!darkMode)}
+/>
+Enable dark mode
+</div>
+</div>
+);
 }
-
-export default App;
